@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Button from './Button';
-import type { Meta } from '@jamsch/react-native-mockups';
+import type { Meta } from '@jamsch/react-mockups';
 
 export default {
   title: 'Button',

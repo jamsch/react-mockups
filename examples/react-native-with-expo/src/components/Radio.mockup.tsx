@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Radio from './Radio';
-import type { Meta } from '@jamsch/react-native-mockups';
+import type { Meta } from '@jamsch/react-mockups';
 
 const values = ['Easy', 'Medium', 'Hard'] as const;
 

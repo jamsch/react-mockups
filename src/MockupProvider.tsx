@@ -4,6 +4,7 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
+  createContext,
 } from 'react';
 import { useWebsocket, sortMockups } from './utils';
 import type { FileMap, MockupBaseProps } from './types';
@@ -11,7 +12,7 @@ import type { FileMap, MockupBaseProps } from './types';
 type SetStateFunction<T> = Dispatch<SetStateAction<T>>;
 
 // Context that wraps all mockups
-export const MockupContext = React.createContext<
+export const MockupContext = createContext<
   [string | null, SetStateFunction<string | null>]
 >(['', () => {}]);
 
@@ -56,28 +57,30 @@ export default function MockupProvider<T extends FileMap>(
   }, [onNavigate, selectedMockup]);
 
   const childContent = (() => {
-    if (selectedMockup) {
-      if (!mockups[selectedMockup]) {
-        console.warn(`No mockup found with the value: '${selectedMockup}'`);
-        setSelectedMockup(null);
-        return null;
-      }
-      // @ts-ignore
-      const Mockup = mockups[selectedMockup].default;
-      return props.Wrapper ? (
+    if (!selectedMockup) {
+      return children;
+    }
+    if (!mockups[selectedMockup]) {
+      console.warn(
+        `[react-mockups] No mockup found with the value: '${selectedMockup}'`
+      );
+      setSelectedMockup(null);
+      return null;
+    }
+    // @ts-ignore
+    const Mockup = mockups[selectedMockup].default;
+
+    if (props.Wrapper) {
+      return (
         <props.Wrapper
           title={Mockup.title}
           path={selectedMockup as string}
           Component={Mockup.component}
-          navigate={(path) => {
-            setSelectedMockup(path);
-          }}
+          navigate={setSelectedMockup}
         />
-      ) : (
-        <Mockup.component />
       );
     }
-    return children;
+    return <Mockup.component />;
   })();
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import LoadingIndicator from './LoadingIndicator';
-import type { Meta } from '@jamsch/react-native-mockups';
+import type { Meta } from '@jamsch/react-mockups';
 
 export default {
   title: 'LoadingIndicator',

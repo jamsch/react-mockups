@@ -1,15 +1,15 @@
-# @jamsch/react-native-mockups
+# @jamsch/react-mockups
 
-[![npm version](https://badge.fury.io/js/@jamsch%2Freact-native-mockups.svg)](https://badge.fury.io/js/@jamsch%2Freact-native-mockups)
+[![npm version](https://badge.fury.io/js/@jamsch%2Freact-mockups.svg)](https://badge.fury.io/js/@jamsch%2Freact-mockups)
 
-react-native-mockups is a lean (no runtime dependencies) alternative to Storybook that provides a similar API with CLI & IDE tooling for React & React Native to develop your components in isolation. It's primary goal is to be easily integrated in to your web & native projects (as a regular component) without requiring any custom build tools.
+react-mockups is a lean (no runtime dependencies) alternative to Storybook that provides a similar API with CLI & IDE tooling for React & React Native to develop your components in isolation. It's primary goal is to be easily integrated in to your web & native projects (as a regular component) without requiring any custom build tools.
 
 ![preview](https://i.imgur.com/ZwRJOd8.gif)
 
 ## Installation
 
 ```sh
-npm install -S @jamsch/react-native-mockups
+npm install -S @jamsch/react-mockups
 ```
 
 ## CLI
@@ -18,8 +18,9 @@ This library makes heavy use of a `mockups.js` file to load your components. The
 
 ```js
 // mockups.js
+import * as MockupName from './path/to/mockup';
 export default {
-  './path/to/mockup.js': require('./path/to/mockup.js'),
+  './path/to/mockup.js': MockupName,
   // etc...
 };
 ```
@@ -34,10 +35,10 @@ This package includes a CLI tool that finds all `*.mockup.js/ts/tsx` files in yo
 // package.json
 {
   "scripts": {
-    "mockup:generate": "react-native-mockups generate"
+    "mockup:generate": "react-mockups generate"
   },
   "config": {
-    "react-native-mockups": {
+    "react-mockups": {
       "searchDir": ["./src"],
       "pattern": "**/*.mockup.tsx",
       "outputFile": "./src/mockups.ts",
@@ -56,11 +57,11 @@ This package includes a CLI tool that finds all `*.mockup.js/ts/tsx` files in yo
 Alternatively, you can call the CLI directly in case you'd like to generate multiple mockup files for various parts of your app.
 
 ```sh
-react-native-mockups [options]
+react-mockups [options]
 
 Commands:
-  react-native-mockups server [-p 1337]  Start the server
-  react-native-mockups generate          Generate the mockups file
+  react-mockups server [-p 1337]  Start the server
+  react-mockups generate          Generate the mockups file
 
 Options:
   --version     Show version number                                       [boolean]
@@ -68,7 +69,7 @@ Options:
 ```
 
 ```sh
-react-native-mockups generate
+react-mockups generate
 
 Generate the mockups file
 
@@ -84,7 +85,7 @@ Options:
 ```
 
 ```sh
-react-native-mockups server [-p 1337]
+react-mockups server [-p 1337]
 
 Start the server
 
@@ -123,7 +124,8 @@ export default {
 ```jsx
 // MockupApp.jsx
 import React from 'react';
-import { MockupRoot } from '@jamsch/react-native-mockups';
+import { MockupRoot } from '@jamsch/react-mockups/native';
+// for web: import { MockupRoot } from '@jamsch/react-mockups/web';
 import mockups from './mockups'; // your generated file
 
 export default function MockupApp() {
@@ -148,7 +150,7 @@ module.exports = {
 "scripts": {
   "start": "react-native start",
   "mockup": "cross-env MOCKUP=true npm start",
-  "premockup": "react-native-mockups generate"
+  "premockup": "react-mockups generate"
 }
 ```
 
@@ -172,7 +174,7 @@ You can import `Meta` to help assist typechecking exports on `*.mockup.tsx` file
 // Button.mockup.tsx
 import React from 'react';
 import { Button, View } from 'react-native';
-import type { Meta } from '@jamsch/react-native-mockups';
+import type { Meta } from '@jamsch/react-mockups';
 
 export default {
   // What will be displayed on the root view
@@ -196,7 +198,7 @@ In case you'd like to persist the same mockup view across refreshes, you'd proba
 ```jsx
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MockupRoot } from '@jamsch/react-native-mockups';
+import { MockupRoot } from '@jamsch/react-mockups/native';
 import mockups from './mockups'; // your generated file
 
 const STORAGE_KEY = 'MOCKUP_INITIAL_PATH';
@@ -244,7 +246,7 @@ export default function MockupApp() {
 // MockupApp.jsx
 import React from 'react';
 import { Pressable, Text } from 'react-native';
-import { MockupRoot } from '@jamsch/react-native-mockups';
+import { MockupRoot } from '@jamsch/react-mockups/native';
 import mockups from './mockups'; // your generated file
 
 export default function MockupApp() {
@@ -298,19 +300,19 @@ export default function MockupApp() {
 
 ## Running the preview server
 
-`react-native-mockups` includes a tiny Node.js http & websocket server to allow for integration with IDE tooling (VS code extensions) & web apps.
+`react-mockups` includes a tiny Node.js http & websocket server to allow for integration with IDE tooling (VS code extensions) & web apps.
 
 Preview:
 
 ![mockup-server-preview](https://i.imgur.com/D9TCc4D.gif)
 
-1. Run `react-native-mockups server` (or `npm run mockups:server` as shown below) to start the server
+1. Run `react-mockups server` (or `npm run mockups:server` as shown below) to start the server
 
 ```json
 // package.json
 {
   "scripts": {
-    "mockups:server": "react-native-mockups server",
+    "mockups:server": "react-mockups server",
     // alternatively, run server & your app using the same command
     "dev": "npm-run-all --parallel mockups:server start"
   }
@@ -321,7 +323,7 @@ Preview:
 
 ```tsx
 import React from 'react';
-import { MockupRoot } from '@jamsch/react-native-mockups';
+import { MockupRoot } from '@jamsch/react-mockups/native';
 import mockups from './mockups';
 
 export default function App() {
@@ -342,7 +344,7 @@ adb reverse tcp:1337 tcp:1337
 
 ## VS Code extension
 
-You can install the following VS Code extension if you'd like to navigate between mockup files in your local codebase and on your app. You'll need to be running the Mockup server (`react-native-mockups server`) to use this extension.
+You can install the following VS Code extension if you'd like to navigate between mockup files in your local codebase and on your app. You'll need to be running the Mockup server (`react-mockups server`) to use this extension.
 
 - Repository: https://github.com/jamsch/react-native-mockups-explorer-vscode
 - Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=jamsch.react-native-mockups-explorer-vscode

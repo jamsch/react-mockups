@@ -37,7 +37,7 @@ export default function server(hostname = '127.0.0.1', port = 1337) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     const file = fs.readFileSync(
-      path.resolve(__dirname, './server.html'),
+      path.resolve(__dirname, './server.html'), // This file can be found in the project root
       'utf8'
     );
     res.write(
@@ -71,14 +71,17 @@ export default function server(hostname = '127.0.0.1', port = 1337) {
       state.clients = state.clients.filter((client) => client !== ws);
     });
 
-    ws.on('message', (message) => {
+    ws.on('message', (data, isBinary) => {
+      // WS 8 breaking change: messages can be binary
+      const message = isBinary ? data : data.toString();
+
       if (typeof message !== 'string') {
         return;
       }
 
-      const data = JSON.parse(message);
+      const messageData = JSON.parse(message);
 
-      switch (data.type) {
+      switch (messageData.type) {
         // When IDE clients try to connect to the server, send back app state
         case 'PING': {
           if (state.app.hasSynced) {
@@ -90,7 +93,7 @@ export default function server(hostname = '127.0.0.1', port = 1337) {
         case 'UPDATE_STATE': {
           state.app = {
             ...state.app, // retain "projectRoot"
-            ...(data.payload as AppState),
+            ...(messageData.payload as AppState),
             hasSynced: true,
           };
           // Update clients
@@ -102,7 +105,7 @@ export default function server(hostname = '127.0.0.1', port = 1337) {
           break;
         }
         case 'NAVIGATE': {
-          state.app.path = data.payload as string;
+          state.app.path = messageData.payload as string;
           // Update both IDE & app clients (except the one that sent the message)
           for (const client of state.clients.filter((c) => c !== ws)) {
             client.send(

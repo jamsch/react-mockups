@@ -21,18 +21,36 @@ const defaultPrettierOptions: prettier.Options = {
   parser: 'babel',
 };
 
+const slugifyFilePath = (filePath: string): string => {
+  return (
+    filePath
+      // remove "./"
+      .replace(/\.\//g, '')
+      .replace(/\//g, '_')
+      .replace(/\\/g, '_')
+      .replace(/\./g, '_')
+      .replace(/[^a-zA-Z_]/g, '')
+  );
+};
+
 export const generateTemplate = async (
   loader: LoaderDefinition
 ): Promise<string> => {
-  const template = `// Auto-generated file created by react-native-mockups
+  const { relative } = loader.mockupFiles;
+
+  const template = `// Auto-generated file created by react-mockups
   // Do not edit.
   //
-  // https://github.com/jamsch/react-native-mockups
+  // https://github.com/jamsch/react-mockups
+
+  ${relative.outputFile
+    .map((path) => `import * as ${slugifyFilePath(path)} from '${path}';`)
+    .join('\n')}
 
   export default {
   ${relativeFormatter(
-    loader.mockupFiles.relative,
-    (file) => `'${file.root}': require('${file.outputFile}')`,
+    relative,
+    (file) => `'${file.root}': ${slugifyFilePath(file.outputFile)}`,
     ',\n'
   )}
   };

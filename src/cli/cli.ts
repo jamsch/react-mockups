@@ -12,7 +12,6 @@ import {
 
 import { generateTemplate } from './template';
 import { generateLoaderDefinition } from './locator';
-import { encoding } from './constants';
 import server from './server';
 
 const resolveArgs = (keys: string[], value: string, defaultValue: string) => {
@@ -125,7 +124,9 @@ function GenerateCommand(args: GenerateConfiguration) {
 
       logger.info('Writing to ' + loaderDefinition.outputFile);
 
-      await fs.writeFile(loaderDefinition.outputFile, template, { encoding });
+      await fs.writeFile(loaderDefinition.outputFile, template, {
+        encoding: 'utf-8',
+      });
     } catch (err) {
       logger.error('Failed to execute: ' + err);
     }

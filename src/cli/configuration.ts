@@ -1,7 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import logger from './logger';
-import { encoding, appName } from './constants';
 
 export type PackageJsonConfig = Partial<{
   searchDir: Array<string> | string;
@@ -24,7 +23,8 @@ export type GenerateConfiguration = {
 
 type PackageJsonFile = {
   config?: {
-    [appName]?: PackageJsonConfig;
+    'react-mockups'?: PackageJsonConfig;
+    'react-native-mockups'?: PackageJsonConfig;
   };
 };
 
@@ -76,10 +76,13 @@ export const resolvePackageJsonConfig = async () => {
   logger.debug('package.json located at ' + packageJsonFile);
 
   const packageJsonContents = await fs.readFile(packageJsonFile, {
-    encoding,
+    encoding: 'utf8',
   });
 
-  return (JSON.parse(packageJsonContents) as PackageJsonFile).config?.[appName];
+  const config = (JSON.parse(packageJsonContents) as PackageJsonFile).config;
+
+  // Fall back to legacy config
+  return config?.['react-mockups'] || config?.['react-native-mockups'];
 };
 
 const getPackageJsonPath = async (processDirectory: string) => {
@@ -116,7 +119,7 @@ export const generateConfiguration = async (
     const pkgConfig = await resolvePackageJsonConfig();
     logger.debug('package.json configuration: ', pkgConfig);
     if (!pkgConfig) {
-      logger.debug(`package.json does not have [${appName}] configuration`);
+      logger.debug(`package.json does not have [react-mockups] configuration`);
       return defaultConfiguration;
     }
     const config = resolveConfiguration(pkgConfig, defaultConfiguration);

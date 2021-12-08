@@ -2,6 +2,11 @@
   <head>
     <title>Mockup server</title>
     <style>
+      small {
+        font-size: 13px;
+        padding-left: 1rem;
+        color: #ccc;
+      }
       .warning {
         color: red;
         text-align: center;
@@ -17,6 +22,9 @@
         width: 100%;
         text-align: left;
         border-bottom: 1px solid #9ca3af;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       button.current {
         background: #f3f4f6;
@@ -134,7 +142,12 @@
               return h('button', {
                 class: isCurrent ? 'current' : '',
                 onclick: () => navigate(mockup.path),
-                children: mockup.title,
+                children: [
+                  mockup.title,
+                  h('small', {
+                    children: mockup.path,
+                  }),
+                ],
               });
             }),
           });

@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
-import { MockupRoot } from '@jamsch/react-native-mockups';
+import { MockupRoot } from '@jamsch/react-mockups/native';
 import mockups from './mockups';
 
-export default function App() {
+export default function AppWithServer() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>My Mockups</Text>
-      <MockupRoot mockups={mockups} />
+      <MockupRoot mockups={mockups} server="localhost:1337" />
     </SafeAreaView>
   );
 }

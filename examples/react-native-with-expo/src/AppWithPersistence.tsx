@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MockupRoot } from '@jamsch/react-native-mockups';
+import { MockupRoot } from '@jamsch/react-mockups/native';
 import mockups from './mockups'; // your generated file
 
 const STORAGE_KEY = 'MOCKUP_INITIAL_PATH';

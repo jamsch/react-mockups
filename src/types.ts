@@ -1,6 +1,13 @@
-import type { ComponentType, FunctionComponent } from 'react';
+import type { ComponentType, FunctionComponent, ReactNode } from 'react';
 
-export type FileMap = Record<string, NodeRequire>;
+/** Used for .mockup.tsx/jsx files */
+export interface Meta {
+  title: string;
+  description?: string;
+  component?: ComponentType;
+}
+
+export type FileMap = Record<string, any>;
 
 export interface MockupBaseProps<T extends FileMap> {
   /** Initial path when mounting */
@@ -21,5 +28,13 @@ export type MockupWrapperProps = {
   Component: ComponentType<any>;
   navigate: (path: string | null) => void;
 };
+
+export interface MockupRootProps<T extends FileMap> extends MockupBaseProps<T> {
+  renderItem?: (params: {
+    path: keyof T;
+    title: string;
+    navigate: (path: keyof T) => void;
+  }) => ReactNode;
+}
 
 export type MockupWrapperComponent = FunctionComponent<MockupWrapperProps>;

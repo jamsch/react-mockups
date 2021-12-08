@@ -29,7 +29,7 @@ export const useWebsocket = (
     ws.onerror = (event) => {
       if (event.message) {
         console.warn(
-          `[react-native-mockups] Failed to connect to WebSocket server. Please make sure that you've ran "react-native-mockups server".
+          `[react-mockups] Failed to connect to WebSocket server. Please make sure that you've ran "react-mockups server".
 Error: `,
           event
         );
