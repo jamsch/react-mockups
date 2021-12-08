@@ -1,6 +1,6 @@
 # @jamsch/react-mockups
 
-[![npm version](https://badge.fury.io/js/@jamsch%2Freact-mockups.svg)](https://badge.fury.io/js/@jamsch%2Freact-mockups)
+[![npm version](https://badge.fury.io/js/@jamsch%2Freact-mockups.svg)](https://www.npmjs.com/package/@jamsch/react-mockups) ![bundle size](https://img.shields.io/bundlephobia/min/@jamsch/react-mockups)
 
 react-mockups is a lean (no runtime dependencies) alternative to Storybook that provides a similar API with CLI & IDE tooling for React & React Native to develop your components in isolation. It's primary goal is to be easily integrated in to your web & native projects (as a regular component) without requiring any custom build tools.
 
