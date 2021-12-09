@@ -1,0 +1,40 @@
+{
+  "name": "react-with-vite",
+  "description": "React Mockups React with Vite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "start-mockup": "vite --mode mockup",
+    "mockup": "npm-run-all --parallel mockup-server start-mockup",
+    "premockup": "react-mockups generate",
+    "mockup-server": "react-mockups server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jamsch/react-mockups": "^0.7.1",
+    "@vitejs/plugin-react": "^1.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "vite": "^2.7.1"
+  },
+  "config": {
+    "react-mockups": {
+      "host": "localhost",
+      "port": "1337",
+      "searchDir": [
+        "."
+      ],
+      "pattern": "**/*.mockup.tsx",
+      "outputFile": "./mockups.ts"
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.44.0"
+  }
+}
