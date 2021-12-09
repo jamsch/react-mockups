@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { forwardRef, useCallback, useContext, useEffect } from 'react';
 import {
   ScrollView,
   View,
@@ -8,32 +8,38 @@ import {
   BackHandler,
 } from 'react-native';
 import MockupProvider, { MockupContext } from './MockupProvider';
-import type { FileMap, MockupRootProps, MockupWrapperComponent } from './types';
+import type {
+  FileMap,
+  MockupRootProps,
+  MockupWrapperComponent,
+  MockupRootRef,
+} from './types';
 import { useSortedMockups } from './utils';
 
-export function MockupRoot<T extends FileMap>(props: MockupRootProps<T>) {
-  const { Wrapper: PropsWrapper, ...rest } = props;
+export const MockupRoot = forwardRef<MockupRootRef, MockupRootProps<FileMap>>(
+  (props, ref) => {
+    const { Wrapper: PropsWrapper, ...rest } = props;
 
-  // Add back button handling inside mockups
-  const Wrapper = useCallback<MockupWrapperComponent>(
-    (p) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useHandleBack(() => {
-        p.navigate(null);
-        return true;
-      });
-      return PropsWrapper ? <PropsWrapper {...p} /> : <p.Component />;
-    },
-    [PropsWrapper]
-  );
+    // Add back button handling inside mockups
+    const Wrapper = useCallback<MockupWrapperComponent>(
+      (p) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useHandleBack(() => {
+          p.navigate(null);
+          return true;
+        });
+        return PropsWrapper ? <PropsWrapper {...p} /> : <p.Component />;
+      },
+      [PropsWrapper]
+    );
 
-  return (
-    <MockupProvider Wrapper={Wrapper} {...rest}>
-      {/* @ts-ignore */}
-      <MockupRootView {...props} />
-    </MockupProvider>
-  );
-}
+    return (
+      <MockupProvider ref={ref} Wrapper={Wrapper} {...rest}>
+        <MockupRootView {...props} />
+      </MockupProvider>
+    );
+  }
+);
 
 function MockupRootView<T extends FileMap>(props: MockupRootProps<T>) {
   const { mockups, renderItem } = props;

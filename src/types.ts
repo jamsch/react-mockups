@@ -1,5 +1,14 @@
 import type { ComponentType, FunctionComponent, ReactNode } from 'react';
 
+export type MockupRootRef = {
+  navigate: (path: string | null) => void;
+  /** Gets the current selected mockup */
+  getState(): null | {
+    title: string;
+    path: string;
+  };
+};
+
 /** Used for .mockup.tsx/jsx files */
 export interface Meta {
   title: string;

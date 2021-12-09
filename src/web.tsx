@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import MockupProvider, { MockupContext } from './MockupProvider';
-import type { FileMap, MockupRootProps } from './types';
+import type { FileMap, MockupRootProps, MockupRootRef } from './types';
 import { useSortedMockups } from './utils';
 
-export function MockupRoot<T extends FileMap>(props: MockupRootProps<T>) {
-  return (
-    <MockupProvider {...props}>
-      <MockupRootView {...props} />
-    </MockupProvider>
-  );
-}
+export const MockupRoot = forwardRef<MockupRootRef, MockupRootProps<FileMap>>(
+  (props, ref) => {
+    return (
+      <MockupProvider ref={ref} {...props}>
+        <MockupRootView {...props} />
+      </MockupProvider>
+    );
+  }
+);
 
 function MockupRootView<T extends FileMap>(props: MockupRootProps<T>) {
   const { mockups, renderItem } = props;
@@ -24,11 +26,7 @@ function MockupRootView<T extends FileMap>(props: MockupRootProps<T>) {
     <div style={styles.container}>
       {sortedMockups.map(({ path, title }) => {
         if (renderItem) {
-          return renderItem({
-            path,
-            title,
-            navigate,
-          });
+          return renderItem({ path, title, navigate });
         }
 
         return (
