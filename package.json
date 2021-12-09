@@ -44,13 +44,6 @@
     "ios",
     "android"
   ],
-  "hooks": {
-    "before:init": [
-      "npm run lint",
-      "npm run typecheck"
-    ],
-    "after:bump": "npm run build"
-  },
   "repository": "https://github.com/jamsch/react-mockups",
   "author": "jamsch <jamsch18@student.wintec.ac.nz> (https://github.com/jamsch)",
   "license": "MIT",
@@ -107,6 +100,13 @@
     ]
   },
   "release-it": {
+    "hooks": {
+      "before:init": [
+        "npm run lint",
+        "npm run typecheck"
+      ],
+      "after:bump": "npm run build"
+    },
     "git": {
       "commitMessage": "chore: release ${version}",
       "tagName": "v${version}"
