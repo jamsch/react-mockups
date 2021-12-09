@@ -29,7 +29,7 @@ function MockupApp() {
       <h1>Mockup app</h1>
       <MockupRoot
         ref={mockupRef}
-        server={import.meta.env.VITE_MOCKUP_SERVER as string | undefined}
+        server={import.meta.env.VITE_MOCKUP_SERVER}
         initialPath={path || undefined}
         onNavigate={setPath}
         mockups={mockups}
