@@ -30,11 +30,7 @@ function MockupRootView<T extends FileMap>(props: MockupRootProps<T>) {
         }
 
         return (
-          <button
-            key={path}
-            onClick={() => navigate(path)}
-            style={styles.mockupButton}
-          >
+          <button key={path} onClick={() => navigate(path)} style={styles.mockupButton}>
             {title}
           </button>
         );

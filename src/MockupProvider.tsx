@@ -7,6 +7,7 @@ import React, {
   createContext,
   forwardRef,
   useImperativeHandle,
+  useMemo,
 } from 'react';
 import { useWebsocket, sortMockups } from './utils';
 import type { FileMap, MockupBaseProps, MockupRootRef } from './types';
@@ -18,14 +19,13 @@ export const MockupContext = createContext<
   [string | null, SetStateFunction<string | null>]
 >(['', () => {}]);
 
-export interface MockupProviderProps<T extends FileMap>
-  extends MockupBaseProps<T> {
+export interface MockupProviderProps<T extends FileMap> extends MockupBaseProps<T> {
   children: ReactNode;
 }
 
 const MockupProvider = forwardRef<MockupRootRef, MockupProviderProps<FileMap>>(
   (props, ref) => {
-    const { mockups, initialPath, onNavigate, server, children } = props;
+    const { mockups, initialPath, onNavigate, server, children, Wrapper } = props;
     const state = useState<string | null>(initialPath || null);
     const [selectedMockup, setSelectedMockup] = state;
 
@@ -68,7 +68,7 @@ const MockupProvider = forwardRef<MockupRootRef, MockupProviderProps<FileMap>>(
       onNavigate?.(selectedMockup);
     }, [onNavigate, selectedMockup]);
 
-    const childContent = (() => {
+    const childContent = useMemo(() => {
       if (!selectedMockup) {
         return children;
       }
@@ -82,27 +82,20 @@ const MockupProvider = forwardRef<MockupRootRef, MockupProviderProps<FileMap>>(
       // @ts-ignore
       const Mockup = mockups[selectedMockup].default;
 
-      if (props.Wrapper) {
+      if (Wrapper) {
         return (
-          <props.Wrapper
+          <Wrapper
             title={Mockup.title}
-            path={selectedMockup as string}
+            path={selectedMockup}
             Component={Mockup.component}
             navigate={setSelectedMockup}
           />
         );
       }
       return <Mockup.component />;
-    })();
+    }, [selectedMockup, setSelectedMockup, mockups, children, Wrapper]);
 
-    return (
-      <MockupContext.Provider
-        // @ts-ignore
-        value={state}
-      >
-        {childContent}
-      </MockupContext.Provider>
-    );
+    return <MockupContext.Provider value={state}>{childContent}</MockupContext.Provider>;
   }
 );
 

@@ -1,12 +1,5 @@
 import React, { forwardRef, useCallback, useContext, useEffect } from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  BackHandler,
-} from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Pressable, BackHandler } from 'react-native';
 import MockupProvider, { MockupContext } from './MockupProvider';
 import type {
   FileMap,

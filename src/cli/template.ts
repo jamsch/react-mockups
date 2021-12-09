@@ -33,9 +33,7 @@ const slugifyFilePath = (filePath: string): string => {
   );
 };
 
-export const generateTemplate = async (
-  loader: LoaderDefinition
-): Promise<string> => {
+export const generateTemplate = async (loader: LoaderDefinition): Promise<string> => {
   const { relative } = loader.mockupFiles;
 
   const template = `// Auto-generated file created by react-mockups
@@ -64,9 +62,7 @@ const makePrettier = async (template: string): Promise<string> => {
     const prettierConfigFile = await prettier.resolveConfigFile();
 
     if (prettierConfigFile === null) {
-      logger.info(
-        'Prettier configuration not detected, using default formatting.'
-      );
+      logger.info('Prettier configuration not detected, using default formatting.');
       return prettier.format(template, defaultPrettierOptions);
     }
 
@@ -77,9 +73,7 @@ const makePrettier = async (template: string): Promise<string> => {
     const prettierConfig = await prettier.resolveConfig(prettierConfigFile);
 
     if (prettierConfig === null) {
-      logger.warn(
-        'Prettier configuration was not found, using default formatting.'
-      );
+      logger.warn('Prettier configuration was not found, using default formatting.');
       return prettier.format(template, defaultPrettierOptions);
     }
 

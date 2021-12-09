@@ -98,9 +98,7 @@ export default function server(hostname = '127.0.0.1', port = 1337) {
           };
           // Update clients
           for (const client of state.clients.filter((c) => c !== ws)) {
-            client.send(
-              JSON.stringify({ type: 'SYNC_STATE', payload: state.app })
-            );
+            client.send(JSON.stringify({ type: 'SYNC_STATE', payload: state.app }));
           }
           break;
         }
@@ -108,9 +106,7 @@ export default function server(hostname = '127.0.0.1', port = 1337) {
           state.app.path = messageData.payload as string;
           // Update both IDE & app clients (except the one that sent the message)
           for (const client of state.clients.filter((c) => c !== ws)) {
-            client.send(
-              JSON.stringify({ type: 'NAVIGATE', payload: state.app.path })
-            );
+            client.send(JSON.stringify({ type: 'NAVIGATE', payload: state.app.path }));
           }
           break;
         }

@@ -45,11 +45,7 @@ yargs
     },
     (argv) => {
       resolvePackageJsonConfig().then((config) => {
-        const host = resolveArgs(
-          ['-h', '--host'],
-          argv.host,
-          config?.host || argv.host
-        );
+        const host = resolveArgs(['-h', '--host'], argv.host, config?.host || argv.host);
 
         const port = resolveArgs(
           ['-p', '--port'],
