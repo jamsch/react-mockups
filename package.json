@@ -29,12 +29,13 @@
     "native.js",
     "native.d.ts",
     "native.mjs",
+    "server.html",
     "cli.js"
   ],
   "scripts": {
-    "typescript": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
-    "prepare": "rollup -c && husky install",
+    "build": "rollup -c && husky install",
     "release": "release-it",
     "example": "yarn --cwd example"
   },
@@ -43,6 +44,13 @@
     "ios",
     "android"
   ],
+  "hooks": {
+    "before:init": [
+      "npm run lint",
+      "npm run typecheck"
+    ],
+    "after:bump": "npm run build"
+  },
   "repository": "https://github.com/jamsch/react-mockups",
   "author": "jamsch <jamsch18@student.wintec.ac.nz> (https://github.com/jamsch)",
   "license": "MIT",
@@ -147,6 +155,7 @@
     "web.js",
     "web.d.ts",
     "web.mjs",
+    "examples/",
     "node_modules/"
   ],
   "prettier": {
