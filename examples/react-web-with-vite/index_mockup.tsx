@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { render } from 'react-dom';
 import type { MockupRootRef, MockupWrapperProps } from '@jamsch/react-mockups';
 import { MockupRoot } from '@jamsch/react-mockups/web';
@@ -6,13 +6,6 @@ import mockups from './mockups'; // your generated file
 
 function MockupApp() {
   const mockupRef = useRef<MockupRootRef>(null);
-  const [path, setPath] = useState<string | null>(
-    window.location.hash.slice(1)
-  );
-
-  useEffect(() => {
-    window.location.hash = path || '';
-  }, [path]);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -30,8 +23,10 @@ function MockupApp() {
       <MockupRoot
         ref={mockupRef}
         server={import.meta.env.VITE_MOCKUP_SERVER}
-        initialPath={path || undefined}
-        onNavigate={setPath}
+        initialPath={window.location.hash.slice(1)}
+        onNavigate={(path) => {
+          window.location.hash = path || '';
+        }}
         mockups={mockups}
         Wrapper={MockupWrapper}
       />
