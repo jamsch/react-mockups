@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { render } from 'react-dom';
 import type { MockupRootRef, MockupWrapperProps } from '@jamsch/react-mockups';
 import { MockupRoot } from '@jamsch/react-mockups/web';
-import mockups from './mockups'; // your generated file
+import mockups from './mockups';
 
 function MockupApp() {
   const mockupRef = useRef<MockupRootRef>(null);

@@ -7,7 +7,6 @@
     "start": "vite",
     "start-mockup": "vite --mode mockup",
     "mockup": "npm-run-all --parallel mockup-server start-mockup",
-    "premockup": "react-mockups generate",
     "mockup-server": "react-mockups server"
   },
   "keywords": [],
