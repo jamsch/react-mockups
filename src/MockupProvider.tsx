@@ -72,22 +72,25 @@ const MockupProvider = forwardRef<MockupRootRef, MockupProviderProps<FileMap>>(
       if (!selectedMockup) {
         return children;
       }
-      if (!mockups[selectedMockup]) {
+      const [path, variant = "default"] = selectedMockup.split('@');
+
+      // @ts-ignore
+      const Mockup = mockups[path]?.[variant];
+
+      if (!Mockup) {
         console.warn(
           `[react-mockups] No mockup found with the value: '${selectedMockup}'`
         );
         setSelectedMockup(null);
         return null;
       }
-      // @ts-ignore
-      const Mockup = mockups[selectedMockup].default;
 
       if (Wrapper) {
         return (
           <Wrapper
             title={Mockup.title}
             path={selectedMockup}
-            Component={Mockup.component}
+            Component={typeof Mockup === "function" ? Mockup : Mockup.component}
             navigate={setSelectedMockup}
           />
         );
