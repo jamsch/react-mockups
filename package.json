@@ -1,6 +1,6 @@
 {
   "name": "@jamsch/react-mockups",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "Tools to develop components in isolation for React & React Native",
   "main": "./index.js",
   "types": "./index.d.ts",
