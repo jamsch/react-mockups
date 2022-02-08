@@ -72,7 +72,7 @@ const MockupProvider = forwardRef<MockupRootRef, MockupProviderProps<FileMap>>(
       if (!selectedMockup) {
         return children;
       }
-      const [path, variant = "default"] = selectedMockup.split('@');
+      const [path, variant = 'default'] = selectedMockup.split('@');
 
       // @ts-ignore
       const Mockup = mockups[path]?.[variant];
@@ -90,7 +90,7 @@ const MockupProvider = forwardRef<MockupRootRef, MockupProviderProps<FileMap>>(
           <Wrapper
             title={Mockup.title}
             path={selectedMockup}
-            Component={typeof Mockup === "function" ? Mockup : Mockup.component}
+            Component={typeof Mockup === 'function' ? Mockup : Mockup.component}
             navigate={setSelectedMockup}
           />
         );
