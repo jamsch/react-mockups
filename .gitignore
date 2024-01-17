@@ -59,6 +59,8 @@ android/keystores/debug.keystore
 # Build outputs
 /cli.js
 /index.js
+/index.mjs
+/index.mjs.map
 /web.js
 /web.js.map
 /web.d.ts

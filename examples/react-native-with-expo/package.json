@@ -8,37 +8,22 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "start": "expo start",
-    "start:mockups": "npm-run-all --parallel mockup-server start",
-    "mockup-server": "react-mockups server",
-    "premockup-server": "node ./adb-reverse.js && react-mockups generate"
-  },
-  "config": {
-    "react-mockups": {
-      "host": "localhost",
-      "port": "1337",
-      "searchDir": [
-        "./src"
-      ],
-      "pattern": "**/*.mockup.tsx",
-      "outputFile": "./src/mockups.ts"
-    }
+    "start": "expo start"
   },
   "dependencies": {
     "@jamsch/react-mockups": "latest",
-    "@react-native-async-storage/async-storage": "^1.15.17",
-    "expo": "^44.0.6",
-    "expo-splash-screen": "~0.14.2",
-    "npm-run-all": "^4.1.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-native": "0.64.3"
+    "@react-native-async-storage/async-storage": "^1.21.0",
+    "expo": "^49.0.21",
+    "expo-splash-screen": "~0.22.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-native": "0.73.2"
   },
   "devDependencies": {
-    "@babel/core": "~7.17.0",
-    "@babel/runtime": "^7.17.0",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "babel-preset-expo": "9.0.2",
-    "expo-cli": "^5.0.3"
+    "@babel/core": "~7.23.7",
+    "@babel/runtime": "^7.23.8",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-preset-expo": "9.5.2",
+    "expo-cli": "^6.3.10"
   }
 }

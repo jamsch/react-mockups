@@ -77,6 +77,16 @@ export default [
     },
   }),
   bundle({
+    input: 'src/index.ts',
+    plugins: [esbuild()],
+    output: {
+      file: `./index.mjs`,
+      format: 'es',
+      sourcemap: true,
+
+    },
+  }),
+  bundle({
     input: 'src/types.ts',
     plugins: [dts()],
     output: {

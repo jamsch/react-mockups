@@ -4,15 +4,23 @@
   "description": "Tools to develop components in isolation for React & React Native",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "type": "module",
   "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./index.mjs",
+      "types": "./index.d.ts"
+    },
     "./package.json": "./package.json",
     "./native": {
       "require": "./native.js",
-      "import": "./native.mjs"
+      "import": "./native.mjs",
+      "types": "./native.d.ts"
     },
     "./web": {
       "require": "./web.js",
-      "import": "./web.mjs"
+      "import": "./web.mjs",
+      "types": "./web.d.ts"
     }
   },
   "bin": {
@@ -45,7 +53,7 @@
     "android"
   ],
   "repository": "https://github.com/jamsch/react-mockups",
-  "author": "jamsch <jamsch18@student.wintec.ac.nz> (https://github.com/jamsch)",
+  "author": "jamsch <12927717+jamsch@users.noreply.github.com> (https://github.com/jamsch)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jamsch/react-mockups/issues"
@@ -56,33 +64,33 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "glob": "^7.2.0",
-    "prettier": "^2.5.1",
-    "ws": "^8.5.0",
-    "yargs": "^17.3.1"
+    "glob": "^10.3.10",
+    "prettier": "^3.2.3",
+    "ws": "^8.16.0",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^16.0.0",
-    "@release-it/conventional-changelog": "^4.1.0",
-    "@types/glob": "^7.2.0",
-    "@types/prettier": "^2.4.3",
-    "@types/react": "^17.0.39",
-    "@types/react-native": "0.66.15",
-    "@types/ws": "^8.2.2",
-    "@typescript-eslint/parser": "^5.11.0",
-    "commitlint": "^16.1.0",
-    "esbuild": "^0.14.20",
-    "eslint": "^8.8.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^7.0.4",
-    "react": "^17.0.2",
-    "react-native": "0.64.3",
-    "release-it": "^14.12.4",
-    "rollup": "^2.67.1",
-    "rollup-plugin-dts": "^4.1.0",
-    "rollup-plugin-esbuild": "^4.8.2",
+    "@commitlint/config-conventional": "^18.4.4",
+    "@release-it/conventional-changelog": "^8.0.1",
+    "@types/glob": "^8.1.0",
+    "@types/prettier": "^3.0.0",
+    "@types/react": "^18.2.48",
+    "@types/react-native": "0.73.0",
+    "@types/ws": "^8.5.10",
+    "@typescript-eslint/parser": "^6.19.0",
+    "commitlint": "^18.4.4",
+    "esbuild": "^0.19.11",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "react": "^18.2.0",
+    "react-native": "0.73.2",
+    "release-it": "^17.0.1",
+    "rollup": "^4.9.5",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.0",
     "rollup-plugin-preserve-shebang": "^1.0.1",
-    "typescript": "^4.5.5"
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "react": ">=16.10.0",
